@@ -29,94 +29,93 @@ class AddTodo extends StatelessWidget {
                         : null,
                     onChange: (value) {},
                     autofocus: true,
-                    
                   ),
                   const SizedBox(
                     height: 8,
                   ),
-                  GestureDetector(
-                    onTap: () async {
-                      var a = await showDatePicker(
-                        context: context,
-                        initialDate: DateTime.now(),
-                        firstDate: DateTime.now(),
-                        lastDate: DateTime.now().add(
-                          Duration(days: 365 * 5),
-                        ),
-                        builder: (context, child) {
-                          return child!;
-                        },
-                      );
-                      debugPrint(a.toString());
-                      addTodoController.selectedDate.value = a;
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Row(
-                        children: [
-                          Icon(Icons.date_range),
-                          SizedBox(
-                            width: 16,
-                          ),
-                          Obx(
-                            () => Text(
-                              addTodoController.selectedDate.value
-                                  .toString()
-                                  .split(' ')
-                                  .first,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () async {
-                      var a = await showTimePicker(
-                        context: context,
-                        initialTime: TimeOfDay.now(),
-                        builder: (context, child) {
-                          return Theme(
-                            data: Theme.of(context).copyWith(
-                              colorScheme: ColorScheme.dark(
-                                primary: Theme.of(context).canvasColor,
-                                onPrimary: Colors.white, // header text color
-                                onSurface: Colors.white, // body text color
-                                surface: Theme.of(context).backgroundColor,
-                                background: Theme.of(context).backgroundColor,
-                              ),
-                              textButtonTheme: TextButtonThemeData(
-                                style: TextButton.styleFrom(
-                                  primary: Theme.of(context)
-                                      .colorScheme
-                                      .secondary, // button text color
-                                ),
-                              ),
-                            ),
-                            child: child!,
-                          );
-                        },
-                      );
-                      debugPrint(a.toString());
-                      addTodoController.selectedTime.value = a;
-                    },
-                    child: Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: Row(
-                        children: [
-                          Icon(Icons.more_time),
-                          SizedBox(
-                            width: 16,
-                          ),
-                          Obx(
-                            () => Text(
-                              '${addTodoController.selectedTime.value!.hour}:${addTodoController.selectedTime.value!.minute}',
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+                  // GestureDetector(
+                  //   onTap: () async {
+                  //     var a = await showDatePicker(
+                  //       context: context,
+                  //       initialDate: DateTime.now(),
+                  //       firstDate: DateTime.now(),
+                  //       lastDate: DateTime.now().add(
+                  //         Duration(days: 365 * 5),
+                  //       ),
+                  //       builder: (context, child) {
+                  //         return child!;
+                  //       },
+                  //     );
+                  //     debugPrint(a.toString());
+                  //     addTodoController.selectedDate.value = a;
+                  //   },
+                  //   child: Padding(
+                  //     padding: const EdgeInsets.all(10.0),
+                  //     child: Row(
+                  //       children: [
+                  //         Icon(Icons.date_range),
+                  //         SizedBox(
+                  //           width: 16,
+                  //         ),
+                  //         Obx(
+                  //           () => Text(
+                  //             addTodoController.selectedDate.value
+                  //                 .toString()
+                  //                 .split(' ')
+                  //                 .first,
+                  //           ),
+                  //         ),
+                  //       ],
+                  //     ),
+                  //   ),
+                  // ),
+                  // GestureDetector(
+                  //   onTap: () async {
+                  //     var a = await showTimePicker(
+                  //       context: context,
+                  //       initialTime: TimeOfDay.now(),
+                  //       builder: (context, child) {
+                  //         return Theme(
+                  //           data: Theme.of(context).copyWith(
+                  //             colorScheme: ColorScheme.dark(
+                  //               primary: Theme.of(context).canvasColor,
+                  //               onPrimary: Colors.white, // header text color
+                  //               onSurface: Colors.white, // body text color
+                  //               surface: Theme.of(context).backgroundColor,
+                  //               background: Theme.of(context).backgroundColor,
+                  //             ),
+                  //             textButtonTheme: TextButtonThemeData(
+                  //               style: TextButton.styleFrom(
+                  //                 primary: Theme.of(context)
+                  //                     .colorScheme
+                  //                     .secondary, // button text color
+                  //               ),
+                  //             ),
+                  //           ),
+                  //           child: child!,
+                  //         );
+                  //       },
+                  //     );
+                  //     debugPrint(a.toString());
+                  //     addTodoController.selectedTime.value = a;
+                  //   },
+                  //   child: Padding(
+                  //     padding: const EdgeInsets.all(10.0),
+                  //     child: Row(
+                  //       children: [
+                  //         Icon(Icons.more_time),
+                  //         SizedBox(
+                  //           width: 16,
+                  //         ),
+                  //         Obx(
+                  //           () => Text(
+                  //             '${addTodoController.selectedTime.value!.hour}:${addTodoController.selectedTime.value!.minute}',
+                  //           ),
+                  //         ),
+                  //       ],
+                  //     ),
+                  //   ),
+                  // ),
                   Row(
                     children: [
                       Text('Select List: '),
@@ -164,8 +163,8 @@ class AddTodo extends StatelessWidget {
                         category: addTodoController.initialDropDownVal.value,
                         title: addTodoController.task.text,
                         created: DateTime.now(),
-                        milestone:
-                            DateTime(d.year, d.month, d.day, t.hour, t.minute),
+                        // milestone:
+                        //     DateTime(d.year, d.month, d.day, t.hour, t.minute),
                       ),
                     );
                     Get.back();

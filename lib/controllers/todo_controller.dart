@@ -4,6 +4,8 @@ class TodoController extends GetxController {
   var todos = <Todo>[].obs;
   var filteredTodos = <Todo>[].obs;
   var categories = <Category>[].obs;
+  var numberOfAllTasks = 0.obs;
+  var numberOfAllDoneTasks = 0.obs;
   var isLoading = false.obs;
 
   @override
@@ -19,12 +21,16 @@ class TodoController extends GetxController {
   }
 
   assignNumberOfTasksToCategories() {
+    numberOfAllDoneTasks.value = 0;
+    numberOfAllTasks.value = 0;
     for (var todo in todos) {
       for (var i = 0; i < categories.length; i++) {
         if (todo.category!.id == categories[i].id) {
           categories[i] = categories[i].copyWith(
             numberOfTasks: categories[i].numberOfTasks! + 1,
           );
+          numberOfAllTasks.value += 1;
+
           if (todo.isDone != null && todo.isDone!) {
             if (categories[i].numberOfDoneTasks == null) {
               categories[i] = categories[i].copyWith(
@@ -34,6 +40,7 @@ class TodoController extends GetxController {
             categories[i] = categories[i].copyWith(
               numberOfDoneTasks: categories[i].numberOfDoneTasks! + 1,
             );
+            numberOfAllDoneTasks.value += 1;
           }
         }
       }
@@ -60,6 +67,7 @@ class TodoController extends GetxController {
     );
     todos.insert(0, todo);
     filteredTodos.insert(0, todo);
+    numberOfAllTasks.value += 1;
     categories[i] =
         categories[i].copyWith(numberOfTasks: categories[i].numberOfTasks! + 1);
   }
@@ -134,6 +142,10 @@ class TodoController extends GetxController {
     );
     todos.remove(todo);
     filteredTodos.remove(todo);
+    numberOfAllTasks.value -= 1;
+    if (todo.isDone!) {
+      numberOfAllDoneTasks.value -= 1;
+    }
     isLoading.value = false;
   }
 
@@ -156,6 +168,11 @@ class TodoController extends GetxController {
         numberOfDoneTasks: todo.isDone!
             ? categories[i3].numberOfDoneTasks! + 1
             : categories[i3].numberOfDoneTasks! - 1);
+    if (todo.isDone!) {
+      numberOfAllDoneTasks.value += 1;
+    } else {
+      numberOfAllDoneTasks.value -= 1;
+    }
     isLoading.value = false;
   }
 

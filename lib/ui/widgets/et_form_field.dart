@@ -15,6 +15,8 @@ class EtFormField extends StatelessWidget {
   final String? Function(String?)? validator;
   final Function(String?)? onSaved;
   final Function(String?)? onFieldSubmitted;
+  final Function()? onEditingComplete;
+  final FocusNode? focusNode;
 
   const EtFormField({
     Key? key,
@@ -32,6 +34,8 @@ class EtFormField extends StatelessWidget {
     this.validator,
     this.onSaved,
     this.onFieldSubmitted,
+    this.onEditingComplete,
+    this.focusNode,
   }) : super(key: key);
 
   @override
@@ -45,6 +49,7 @@ class EtFormField extends StatelessWidget {
         borderRadius: BorderRadius.circular(borderRadius),
       ),
       child: TextFormField(
+        focusNode: focusNode,
         autofocus: autofocus ?? false,
         onChanged: onChange,
         decoration: InputDecoration(
@@ -82,6 +87,7 @@ class EtFormField extends StatelessWidget {
         validator: validator,
         onSaved: onSaved,
         onFieldSubmitted: onFieldSubmitted,
+        onEditingComplete: onEditingComplete,
       ),
       // margin: EdgeInsets.only(
       //   left: widthScreenPercent(5, context),

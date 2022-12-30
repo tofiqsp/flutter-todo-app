@@ -58,11 +58,19 @@ class CategoriesListview extends StatelessWidget {
                               const SizedBox(
                                 height: 16,
                               ),
-                              LinearProgressIndicator(
-                                value: 0.3,
-                                backgroundColor:
-                                    Theme.of(context).backgroundColor,
-                                minHeight: 3,
+                              Obx(
+                                () => LinearProgressIndicator(
+                                  value:
+                                      todoController.numberOfAllTasks.value != 0
+                                          ? todoController
+                                                  .numberOfAllDoneTasks.value /
+                                              todoController
+                                                  .numberOfAllTasks.value
+                                          : 0,
+                                  backgroundColor:
+                                      Theme.of(context).backgroundColor,
+                                  minHeight: 3,
+                                ),
                               )
                             ],
                           ),
