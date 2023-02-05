@@ -18,13 +18,13 @@ class AddCategory extends StatelessWidget {
           Align(
             alignment: Alignment.bottomCenter,
             child: Container(
-              margin: EdgeInsets.only(bottom: 24),
+              margin: EdgeInsets.only(bottom: 16, right: 16, left: 16),
               child: Form(
                 key: formKey,
                 child: EtFormField(
                   autofocus: true,
                   controller: addCategoryController.category,
-                  labelText: 'List',
+                  labelText: 'List title',
                   validator: (value) =>
                       value!.isEmpty ? 'You have to enter a task first.' : null,
                   onChange: (value) {},

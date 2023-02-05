@@ -1,3 +1,4 @@
+import 'package:flutter/services.dart';
 import 'package:todo/todo.dart';
 
 // ignore: prefer_typing_uninitialized_variables
@@ -5,6 +6,7 @@ late Database database;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   database = await openDatabase(
     join(await getDatabasesPath(), 'todo_database.db'),
     onCreate: (db, version) async {
@@ -26,12 +28,11 @@ void main() async {
   // debugPrint('${a.runtimeType}');
   if (a == 'false' || a == null) {
     await TodoController().insertDefaultCategories();
+    await TodoController().insertDefaultTodos();
     await storageController.write('isCategoriesCreated', 'true');
   }
   runApp(const MyApp());
 }
-
-final ZoomDrawerController z = ZoomDrawerController();
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -40,9 +41,19 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
+      routingCallback: (value) {
+        SystemChrome.setSystemUIOverlayStyle(
+          SystemUiOverlayStyle(
+            statusBarIconBrightness: Brightness.dark,
+            systemNavigationBarIconBrightness: Brightness.dark,
+            statusBarColor: Get.theme.backgroundColor,
+            systemNavigationBarColor: Get.theme.backgroundColor,
+          ),
+        );
+      },
+      title: 'Todoix',
       theme: themeDark,
-      home: const Discovery(),
+      home: Discovery(),
     );
   }
 }

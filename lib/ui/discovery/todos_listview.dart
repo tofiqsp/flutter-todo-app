@@ -57,7 +57,7 @@ class TodosListview extends StatelessWidget {
                         onTap: null,
                         title: AnimatedDefaultTextStyle(
                           duration: const Duration(milliseconds: 200),
-                          style: todo.isDone!
+                          style: todo.isDone ?? false
                               ? const TextStyle(
                                   fontStyle: FontStyle.italic,
                                   decoration: TextDecoration.lineThrough,
@@ -73,29 +73,38 @@ class TodosListview extends StatelessWidget {
                           height: 44,
                           child: Center(
                             child: todo.isDone!
-                                ? SizedBox(
-                                    height: 20,
-                                    width: 20,
-                                    child: Stack(
-                                      children: [
-                                        Positioned(
-                                          left: 5,
-                                          top: 5,
-                                          child: Container(
-                                            height: 15,
-                                            width: 15,
-                                            color:
-                                                Theme.of(context).canvasColor,
-                                          ),
-                                        ),
-                                        Icon(
-                                          Icons.check_box,
-                                          color:
-                                              Theme.of(context).backgroundColor,
-                                        ),
-                                      ],
-                                    ),
+                                ? Icon(
+                                    Icons.check_circle,
+                                    // size: 12,
+                                    color: Theme.of(context).primaryColor,
                                   )
+                                // Container(
+                                //     height: 20,
+                                //     width: 20,
+                                //     decoration: BoxDecoration(
+                                //       borderRadius: BorderRadius.circular(15),
+                                //     ),
+                                //     child: Stack(
+                                //       children: [
+                                //         Positioned(
+                                //           left: 5,
+                                //           top: 5,
+                                //           child: Container(
+                                //             height: 15,
+                                //             width: 15,
+                                //             color:
+                                //                 Theme.of(context).canvasColor,
+                                //             child:
+                                //           ),
+                                //         ),
+                                //         Icon(
+                                //           Icons.circle_outlined,
+                                //           color:
+                                //               Theme.of(context).backgroundColor,
+                                //         ),
+                                //       ],
+                                //     ),
+                                //   )
                                 : Icon(
                                     Icons.circle_outlined,
                                     color: Theme.of(context).primaryColor,

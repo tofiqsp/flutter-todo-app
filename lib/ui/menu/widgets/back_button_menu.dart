@@ -13,8 +13,8 @@ class BackButtonMenu extends StatelessWidget {
         },
         highlightColor: Colors.transparent,
         icon: Container(
-          height: 70,
-          width: 70,
+          height: 30,
+          width: 30,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(35),
             // color: Colors.transparent,
@@ -28,6 +28,7 @@ class BackButtonMenu extends StatelessWidget {
             child: Icon(
               Icons.arrow_back_ios,
               size: 15,
+              color: Colors.white,
             ),
           ),
         ),

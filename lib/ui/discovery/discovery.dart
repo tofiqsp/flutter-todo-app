@@ -1,13 +1,14 @@
 import 'package:todo/todo.dart';
 
 class Discovery extends StatelessWidget {
-  const Discovery({Key? key}) : super(key: key);
+  Discovery({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     TodoController todoController = Get.put(TodoController());
+
     return ZoomDrawer(
-      controller: z,
+      controller: todoController.z,
       menuBackgroundColor: Theme.of(context).canvasColor,
       angle: 0,
       menuScreen: const MenuScreen(),
@@ -45,7 +46,11 @@ class Discovery extends StatelessWidget {
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-            Get.to(() => AddTodo());
+            Get.to(
+              () => AddTodo(),
+              transition: Transition.downToUp,
+              duration: Duration(milliseconds: 250),
+            );
             // final formKey = GlobalKey<FormState>();
             // AddTodoController addTodoController = Get.put(AddTodoController());
             // TodoController todoController = Get.put(TodoController());

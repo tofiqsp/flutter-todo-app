@@ -20,7 +20,23 @@ class DiscoveryAppbar extends StatelessWidget implements PreferredSizeWidget {
           onPressed: () {
             todoController.deleteDatabase('todo_database.db');
           },
-          icon: const Icon(Icons.notifications_outlined),
+          icon: Stack(
+            children: [
+              Icon(Icons.notifications_outlined),
+              Container(
+                width: 13,
+                height: 13,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(6.5),
+                  color: Colors.redAccent,
+                  border: Border.all(
+                    width: 2.5,
+                    color: Get.theme.backgroundColor,
+                  ),
+                ),
+              ),
+            ],
+          ),
           highlightColor: Colors.transparent,
         ),
       ],

@@ -8,7 +8,11 @@ class AddCategoryButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Get.to(() => AddCategory());
+        Get.to(
+          () => AddCategory(),
+          transition: Transition.cupertino,
+          duration: Duration(milliseconds: 250),
+        );
       },
       child: Container(
         decoration: BoxDecoration(

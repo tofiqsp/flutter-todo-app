@@ -7,6 +7,8 @@ class TodoController extends GetxController {
   var numberOfAllTasks = 0.obs;
   var numberOfAllDoneTasks = 0.obs;
   var isLoading = false.obs;
+  final ZoomDrawerController z = ZoomDrawerController();
+  var isData = false.obs;
 
   @override
   void onInit() async {
@@ -17,6 +19,16 @@ class TodoController extends GetxController {
     todos.assignAll(tds);
     filteredTodos.assignAll(tds);
     assignNumberOfTasksToCategories();
+    z.stateNotifier!.addListener(
+      () {
+        if (z.stateNotifier!.value == DrawerState.open ||
+            z.stateNotifier!.value == DrawerState.closing) {
+          isData.value = true;
+        } else {
+          isData.value = false;
+        }
+      },
+    );
     super.onInit();
   }
 
@@ -68,8 +80,10 @@ class TodoController extends GetxController {
     todos.insert(0, todo);
     filteredTodos.insert(0, todo);
     numberOfAllTasks.value += 1;
-    categories[i] =
-        categories[i].copyWith(numberOfTasks: categories[i].numberOfTasks! + 1);
+    if (i > -1) {
+      categories[i] = categories[i]
+          .copyWith(numberOfTasks: categories[i].numberOfTasks! + 1);
+    }
   }
 
   Future<void> insertRandomTodo() async {
@@ -120,8 +134,168 @@ class TodoController extends GetxController {
       ),
     ];
     for (var cat in cats) {
-      insertCategory(cat);
+      await insertCategory(cat);
     }
+  }
+
+  Future<void> insertDefaultTodos() async {
+    var cats = await getCategories();
+    List<Todo> todos = [
+      Todo(
+        isDone: false,
+        title: 'Pay bills',
+        category: cats[0],
+      ),
+      Todo(
+        isDone: false,
+        title: 'Call family member',
+        category: cats[0],
+      ),
+      Todo(
+        isDone: false,
+        title: 'Organize closet',
+        category: cats[0],
+      ),
+      Todo(
+        isDone: false,
+        title: 'Plan vacation',
+        category: cats[0],
+      ),
+      Todo(
+        isDone: false,
+        title: 'Get a haircut',
+        category: cats[0],
+      ),
+      Todo(
+        isDone: false,
+        title: 'Read a book',
+        category: cats[0],
+      ),
+      Todo(
+        isDone: false,
+        title: 'Go grocery shopping',
+        category: cats[0],
+      ),
+      Todo(
+        isDone: false,
+        title: 'Take the dog for a walk',
+        category: cats[0],
+      ),
+      Todo(
+        isDone: false,
+        title: 'Watch a movie',
+        category: cats[0],
+      ),
+      Todo(
+        isDone: false,
+        title: 'Plan to meet my darling',
+        category: cats[0],
+      ),
+      Todo(
+        isDone: false,
+        title: 'Schedule a meeting',
+        category: cats[1],
+      ),
+      Todo(
+        isDone: false,
+        title: 'Prepare a presentation',
+        category: cats[1],
+      ),
+      Todo(
+        isDone: false,
+        title: 'Follow up with a client',
+        category: cats[1],
+      ),
+      Todo(
+        isDone: false,
+        title: 'Write a report',
+        category: cats[1],
+      ),
+      Todo(
+        isDone: false,
+        title: 'Research a new market',
+        category: cats[1],
+      ),
+      Todo(
+        isDone: false,
+        title: 'Attend a networking event',
+        category: cats[1],
+      ),
+      Todo(
+        isDone: false,
+        title: 'Update social media profiles',
+        category: cats[1],
+      ),
+      Todo(
+        isDone: false,
+        title: 'Plan a team building event',
+        category: cats[1],
+      ),
+      Todo(
+        isDone: false,
+        title: 'Review financials',
+        category: cats[1],
+      ),
+      Todo(
+        isDone: false,
+        title: 'Schedule a performance review',
+        category: cats[1],
+      ),
+      Todo(
+        isDone: false,
+        title: 'Go for a run',
+        category: cats[2],
+      ),
+      Todo(
+        isDone: false,
+        title: 'Do a yoga class',
+        category: cats[2],
+      ),
+      Todo(
+        isDone: false,
+        title: 'Lift weights',
+        category: cats[2],
+      ),
+      Todo(
+        isDone: false,
+        title: 'Go for a swim',
+        category: cats[2],
+      ),
+      Todo(
+        isDone: false,
+        title: 'Take a cycling class',
+        category: cats[2],
+      ),
+      Todo(
+        isDone: false,
+        title: 'Hike a trail',
+        category: cats[2],
+      ),
+      Todo(
+        isDone: false,
+        title: 'Do a bodyweight workout',
+        category: cats[2],
+      ),
+      Todo(
+        isDone: false,
+        title: 'Attend a dance class',
+        category: cats[2],
+      ),
+      Todo(
+        isDone: false,
+        title: 'Play a sport',
+        category: cats[2],
+      ),
+      Todo(
+        isDone: false,
+        title: 'Take a martial arts class',
+        category: cats[2],
+      ),
+    ];
+    for (var todo in todos) {
+      await insertTodo(todo);
+    }
+    assignNumberOfTasksToCategories();
   }
 
   Future<void> deleteCategory(Category category) async {
